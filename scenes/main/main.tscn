@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsdl6k6u3ypwi"]
+
+[ext_resource type="Texture2D" uid="uid://c6r7xdrxtdyid" path="res://assets/line.png" id="1_cisw7"]
+[ext_resource type="PackedScene" uid="uid://cq166uk2po8a" path="res://scenes/ball/ball.tscn" id="2_rhb8t"]
+[ext_resource type="PackedScene" uid="uid://p00ttf8og0dg" path="res://scenes/players/player_one.tscn" id="3_d1uau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv2o"]
+size = Vector2(640, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be7w5"]
+size = Vector2(8, 360)
+
+[node name="Main" type="Node"]
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Line" type="Sprite2D" parent="."]
+position = Vector2(324, 180)
+texture = ExtResource("1_cisw7")
+
+[node name="Ball" parent="." instance=ExtResource("2_rhb8t")]
+position = Vector2(279, 154)
+
+[node name="PlayerOne" parent="." instance=ExtResource("3_d1uau")]
+position = Vector2(16, 180)
+
+[node name="ArenaWalls" type="Node2D" parent="."]
+
+[node name="TopWall" type="StaticBody2D" parent="ArenaWalls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/TopWall"]
+position = Vector2(320, -4)
+shape = SubResource("RectangleShape2D_ruv2o")
+
+[node name="BottomWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(0, 368)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/BottomWall"]
+position = Vector2(320, -4)
+shape = SubResource("RectangleShape2D_ruv2o")
+
+[node name="LeftWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(-8, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/LeftWall"]
+position = Vector2(4, -180)
+shape = SubResource("RectangleShape2D_be7w5")
+
+[node name="RightWall" type="StaticBody2D" parent="ArenaWalls"]
+position = Vector2(640, 360)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/RightWall"]
+position = Vector2(4, -180)
+shape = SubResource("RectangleShape2D_be7w5")

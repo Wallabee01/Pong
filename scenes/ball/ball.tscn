@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq166uk2po8a"]
+[gd_scene load_steps=6 format=3 uid="uid://cq166uk2po8a"]
 
 [ext_resource type="Texture2D" uid="uid://clwd70dsot67h" path="res://assets/ball.png" id="1_1tee7"]
+[ext_resource type="Script" path="res://scenes/ball/ball.gd" id="1_vtrwd"]
+[ext_resource type="AudioStream" uid="uid://hltl4q1hel08" path="res://assets/sounds/collect-sound-timer-countdown.wav" id="3_7evxm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rohv0"]
 friction = 0.0
@@ -14,9 +16,9 @@ collision_layer = 4
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_rohv0")
 gravity_scale = 0.0
-linear_velocity = Vector2(-200, 0)
 linear_damp_mode = 1
 angular_damp_mode = 1
+script = ExtResource("1_vtrwd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bgtvo")
@@ -24,3 +26,6 @@ shape = SubResource("CircleShape2D_bgtvo")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("1_1tee7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7evxm")

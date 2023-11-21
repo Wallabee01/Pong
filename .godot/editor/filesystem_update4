@@ -1,6 +1,10 @@
+res://scenes/players/player_two.tscn
+res://scenes/players/player_two.gd
 res://scenes/main/main.tscn
 res://scenes/ball/ball.tscn
-res://scenes/players/player_one.gd
-res://scenes/components/velocity_component.tscn
-res://scenes/components/velocity_component.gd
 res://scenes/players/player_one.tscn
+res://scenes/components/velocity_component.tscn
+res://scenes/goals/goal.tscn
+res://scenes/goals/goal.gd
+res://scenes/main/main.gd
+res://scenes/ball/ball.gd

@@ -1,16 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsdl6k6u3ypwi"]
+[gd_scene load_steps=10 format=3 uid="uid://bsdl6k6u3ypwi"]
 
 [ext_resource type="Texture2D" uid="uid://c6r7xdrxtdyid" path="res://assets/line.png" id="1_cisw7"]
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_oecok"]
 [ext_resource type="PackedScene" uid="uid://cq166uk2po8a" path="res://scenes/ball/ball.tscn" id="2_rhb8t"]
 [ext_resource type="PackedScene" uid="uid://p00ttf8og0dg" path="res://scenes/players/player_one.tscn" id="3_d1uau"]
+[ext_resource type="PackedScene" uid="uid://c3hkbs04jcagu" path="res://scenes/players/player_two.tscn" id="4_gn56w"]
+[ext_resource type="PackedScene" uid="uid://dh7bw5ficf1s4" path="res://scenes/goals/goal.tscn" id="6_ffsyw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv2o"]
 size = Vector2(640, 8)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_be7w5"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m57y5"]
 size = Vector2(8, 360)
 
-[node name="Main" type="Node"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhi4r"]
+size = Vector2(8, 360)
+
+[node name="Main" type="Node" node_paths=PackedStringArray("left_goal", "right_goal")]
+script = ExtResource("1_oecok")
+left_goal = NodePath("Goals/LeftGoal")
+right_goal = NodePath("Goals/RightGoal")
 
 [node name="Background" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -25,10 +34,14 @@ position = Vector2(324, 180)
 texture = ExtResource("1_cisw7")
 
 [node name="Ball" parent="." instance=ExtResource("2_rhb8t")]
-position = Vector2(279, 154)
+position = Vector2(304, 160)
 
 [node name="PlayerOne" parent="." instance=ExtResource("3_d1uau")]
 position = Vector2(16, 180)
+
+[node name="PlayerTwo" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("4_gn56w")]
+position = Vector2(624, 180)
+ball = NodePath("../Ball")
 
 [node name="ArenaWalls" type="Node2D" parent="."]
 
@@ -45,17 +58,42 @@ position = Vector2(0, 368)
 position = Vector2(320, -4)
 shape = SubResource("RectangleShape2D_ruv2o")
 
-[node name="LeftWall" type="StaticBody2D" parent="ArenaWalls"]
-position = Vector2(-8, 360)
+[node name="Goals" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/LeftWall"]
-position = Vector2(4, -180)
-shape = SubResource("RectangleShape2D_be7w5")
+[node name="LeftGoal" parent="Goals" instance=ExtResource("6_ffsyw")]
 
-[node name="RightWall" type="StaticBody2D" parent="ArenaWalls"]
-position = Vector2(640, 360)
-collision_mask = 0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/LeftGoal"]
+position = Vector2(-4, 180)
+shape = SubResource("RectangleShape2D_m57y5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/RightWall"]
-position = Vector2(4, -180)
-shape = SubResource("RectangleShape2D_be7w5")
+[node name="RightGoal" parent="Goals" instance=ExtResource("6_ffsyw")]
+position = Vector2(640, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/RightGoal"]
+position = Vector2(4, 180)
+shape = SubResource("RectangleShape2D_lhi4r")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_right = 32.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="PlayerOneScore" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "01"
+
+[node name="PlayerTwoScore" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "02"

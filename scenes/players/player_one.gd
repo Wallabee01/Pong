@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var velocity_component = $VelocityComponent
 
 
-func _process(delta):
+func _process(_delta):
 	var movement_vector = get_movement_vector()
 	var direction = movement_vector.normalized()
 	velocity_component.accelerate_in_direction(direction)

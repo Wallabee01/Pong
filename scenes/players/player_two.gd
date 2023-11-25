@@ -4,11 +4,11 @@ extends CharacterBody2D
 
 @onready var velocity_component = $VelocityComponent
 
-var range: int = 180
+var ai_range: int = 180
 
 
-func _process(delta):
-	if ball.global_position.x > range:
+func _process(_delta):
+	if ball.global_position.x > ai_range:
 		var direction_y = ball.global_position.y
 		var normalized_direction
 		if direction_y < global_position.y:

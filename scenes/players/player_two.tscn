@@ -1,21 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://c3hkbs04jcagu"]
 
 [ext_resource type="Script" path="res://scenes/players/player_two.gd" id="1_0i8g3"]
-[ext_resource type="Texture2D" uid="uid://dcuv8frhkkepv" path="res://assets/paddle.png" id="1_l5fd5"]
+[ext_resource type="Texture2D" uid="uid://bijciau5q1new" path="res://assets/paddle.png" id="1_l5fd5"]
 [ext_resource type="PackedScene" uid="uid://lphn128d7e3y" path="res://scenes/components/velocity_component.tscn" id="2_b0xns"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_16adc"]
-size = Vector2(16, 64)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_61di8"]
+radius = 8.0
+height = 64.0
 
 [node name="PlayerTwo" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_0i8g3")
 
 [node name="VelocityComponent" parent="." instance=ExtResource("2_b0xns")]
 max_speed = 75
 acceleration = 10.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_16adc")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_l5fd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_61di8")
